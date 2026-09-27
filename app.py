@@ -56,7 +56,7 @@ def home():
         form_string = request.form.get("id")
         selected_id_list = [int(elem) for elem in form_string.split(",") if elem.strip()]
         print(selected_id_list)
-    return render_template("index.html",users = users,selected_id_list=selected_id_list)
+    return render_template("index.html",users = users,selected_id_list=selected_id_list,name="Arham")
 #update
 @app.route("/update",methods=["GET","POST"])
 def update():
