@@ -17,6 +17,8 @@ class Users(db.Model):
 
 
 #Create
+with app.app_context():
+    db.create_all()
 @app.route("/form")
 def form():
     return render_template("form.html")
