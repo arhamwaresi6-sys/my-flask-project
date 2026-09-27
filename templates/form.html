@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Add User</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles2.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="form-container">
+      <div class="form-header">
+        <h1>Add New User</h1>
+
+        <p>Enter the user's information below to add them to the database.</p>
+      </div>
+
+      <form class="user-form" method="POST" action="/create">
+        <div class="form-group">
+          <label for="name"> Name <span class="required">*</span> </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter full name"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+
+        <div class="form-group">
+          <label for="email"> Email <span class="required">*</span> </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@email.com"
+            required
+          />
+        </div>
+
+        <!-- Gender -->
+
+        <div class="form-group">
+          <label> Gender <span class="required">*</span> </label>
+
+          <div class="gender-options">
+            <div class="gender-option">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                required
+              />
+
+              <label for="male"> Male </label>
+            </div>
+
+            <div class="gender-option">
+              <input type="radio" id="female" name="gender" value="female" />
+
+              <label for="female"> Female </label>
+            </div>
+
+            <div class="gender-option">
+              <input type="radio" id="other" name="gender" value="other" />
+
+              <label for="other"> Other </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Birth Date -->
+
+        <div class="form-group">
+          <label for="birth_date">
+            Birth Date <span class="required">*</span>
+          </label>
+
+          <input type="date" id="birth_date" name="birth_date" required />
+        </div>
+
+        <!-- Salary -->
+
+        <div class="form-group">
+          <label for="salary"> Salary <span class="required">*</span> </label>
+
+          <div class="input-with-symbol">
+            <span>৳</span>
+
+            <input
+              type="number"
+              id="salary"
+              name="salary"
+              placeholder="0.00"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Submit -->
+
+        <button type="submit" class="submit-button">Add User</button>
+      </form>
+    </div>
+  </body>
+</html>

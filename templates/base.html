@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Flask Website</title>
+
+    {% block style %} {% endblock %}
+  </head>
+
+  <body>
+    <h1>Hello from Flask!</h1>
+    <p>This HTML is coming directly from Template. my name is {{name}}</p>
+    {% block table %} {%endblock%}
+    <table
+      border="1"
+      style="border-collapse: collapse; width: 100%"
+      class="my-table"
+    >
+      <tr>
+        <td>Index</td>
+        <td>Real database Id</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Gender</td>
+        <td>Birth date</td>
+        <td>salary</td>
+        <td>Created at</td>
+      </tr>
+
+      {%for user in users%}
+
+      <tr {% if user.id in selected_id_list %}class="selected_row" {%endif%}>
+        <td>{{ loop.index }}</td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.gender }}</td>
+        <td>{{ user.birth_date }}</td>
+        <td>{{ user.salary }}</td>
+        <td>{{ user.created_at }}</td>
+      </tr>
+      {%endfor%}
+    </table>
+    <div class="div-button">
+      <button type="button" class="button" id="delete_btn">
+        Delete Selected</button
+      ><button type="button" class="button" id="create_btn">
+        Create new user</button
+      ><button type="button" class="button" id="update_btn">Update user</button>
+    </div>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

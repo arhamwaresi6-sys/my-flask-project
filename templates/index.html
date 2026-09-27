@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+{% endblock %} {% block table %}
+<form class="select_form" method="post">
+  <input
+    type="text"
+    placeholder="give id"
+    name="id"
+    id="id"
+    value="{{ selected_id_list | join(',') }}"
+  />
+</form>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
