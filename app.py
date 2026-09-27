@@ -2,18 +2,8 @@ from flask import Flask , request,redirect,url_for,render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
 app = Flask(__name__)
-
-
-db_url = os.getenv("DATABASE_URL")
-if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = db_url
-
-
+app.config["SQLALCHEMY_DATABASE_URI"]=os.getenv("DATABASE_URL")
 db = SQLAlchemy(app)
-
-
 class Users(db.Model):
     id = db.Column(db.Integer,autoincrement = True, primary_key = True)
     name = db.Column(db.String(100),nullable = False)
