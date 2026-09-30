@@ -1,28 +1,11 @@
-from flask import Flask , request,redirect,url_for,render_template
-from flask_sqlalchemy import SQLAlchemy
-import os
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"]=os.getenv("DATABASE_URL")
-db = SQLAlchemy(app)
-class Users(db.Model):
-    id = db.Column(db.Integer,autoincrement = True, primary_key = True)
-    name = db.Column(db.String(100),nullable = False)
-    email = db.Column(db.String(100),nullable = False,unique = True)
-    gender = db.Column(db.Enum("male","female","other"),nullable = False)
-    birth_date = db.Column(db.Date)
-    salary = db.Column(db.Numeric(10,2))
-    created_at = db.Column(db.TIMESTAMP,
-                           server_default = db.func.current_timestamp()
-                           )
-
-
-#Create
-with app.app_context():
-    db.create_all()
-@app.route("/form")
+from flask import Blueprint,redirect,request,render_template,url_for
+from .extensions import db
+from .modules import Users
+main = Blueprint("main",__name__)
+@main.route("/form")
 def form():
     return render_template("form.html")
-@app.route("/create",methods=["POST"])
+@main.route("/create",methods=["POST"])
 def create():
     form = request.form
     name = form.get("name")
@@ -45,7 +28,7 @@ def create():
 
 
 
-@app.route("/",methods = ["GET","POST"])
+@main.route("/",methods = ["GET","POST"])
 # read
 def home():
     
@@ -58,7 +41,7 @@ def home():
         print(selected_id_list)
     return render_template("index.html",users = users,selected_id_list=selected_id_list,name="Arham")
 #update
-@app.route("/update",methods=["GET","POST"])
+@main.route("/update",methods=["GET","POST"])
 def update():
 
     if request.method == "POST":
@@ -85,7 +68,7 @@ def update():
     return render_template("update.html")
 
 #delete
-@app.route("/delete", methods=["POST"])
+@main.route("/delete", methods=["POST"])
 def delete():
     data = request.get_json()
     ids = data["ids"]
@@ -96,8 +79,3 @@ def delete():
     db.session.commit()
 
     return {"message": "Deleted successfully"}
-with app.app_context():
-    result = db.session.execute(
-        db.text("SELECT USER(), CURRENT_USER(), DATABASE()")
-    )
-    print(result.fetchone())
